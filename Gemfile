@@ -49,3 +49,5 @@ gem "minitest-reporters", "~> 1.4"
 gem "faker", "~> 2.13"
 
 gem "fast_jsonapi", "~> 1.5"
+
+gem "hirb", "~> 0.7.3"
