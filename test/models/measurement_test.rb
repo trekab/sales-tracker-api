@@ -1,9 +1,8 @@
 require 'test_helper'
 
 class MeasurementTest < ActiveSupport::TestCase
-  test "should have a positive quantity" do
+  test "should have a category" do
     measurement = measurements(:one)
-    measurement.quantity = -1
-    assert_not measurement.valid?
+    assert measurement.valid?
   end
 end

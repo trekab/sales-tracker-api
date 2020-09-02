@@ -10,15 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_02_193233) do
+ActiveRecord::Schema.define(version: 2020_09_02_205635) do
 
   create_table "measurements", force: :cascade do |t|
     t.string "category"
-    t.decimal "quantity"
-    t.integer "product_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["product_id"], name: "index_measurements_on_product_id"
+  end
+
+  create_table "product_measurements", force: :cascade do |t|
+    t.integer "product_id", null: false
+    t.integer "measurement_id", null: false
+    t.integer "quantity"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["measurement_id"], name: "index_product_measurements_on_measurement_id"
+    t.index ["product_id"], name: "index_product_measurements_on_product_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -39,6 +46,7 @@ ActiveRecord::Schema.define(version: 2020_09_02_193233) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "measurements", "products"
+  add_foreign_key "product_measurements", "measurements"
+  add_foreign_key "product_measurements", "products"
   add_foreign_key "products", "users"
 end

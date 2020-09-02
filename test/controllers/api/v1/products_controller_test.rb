@@ -71,10 +71,4 @@ class Api::V1::ProductsControllerTest < ActionDispatch::IntegrationTest
     end
     assert_response :forbidden
   end
-
-  test 'destroy product should destroy linked measurement' do
-    assert_difference('Measurement.count', -1) do
-    products(:one).destroy
-    end
-  end
 end

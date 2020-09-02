@@ -1,7 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  category: MyString
+  product: one
+  measurement: one
+  quantity: 1
 
 two:
-  category: MyString
+  product: two
+  measurement: two
+  quantity: 1
