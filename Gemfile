@@ -45,3 +45,5 @@ gem "bcrypt", "~> 3.1"
 gem "jwt", "~> 2.2"
 
 gem "minitest-reporters", "~> 1.4"
+
+gem "faker", "~> 2.13"
