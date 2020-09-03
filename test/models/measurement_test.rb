@@ -1,8 +1,9 @@
 require 'test_helper'
 
 class MeasurementTest < ActiveSupport::TestCase
-  test "should have a category" do
+  test 'Should have a positive total' do
     measurement = measurements(:one)
-    assert measurement.valid?
+    measurement.total = -1
+    assert_not measurement.valid?
   end
 end

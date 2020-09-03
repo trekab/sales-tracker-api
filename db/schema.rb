@@ -10,12 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_03_171421) do
+ActiveRecord::Schema.define(version: 2020_09_03_185540) do
 
   create_table "measurements", force: :cascade do |t|
+    t.integer "user_id", null: false
     t.string "category"
+    t.integer "total"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_measurements_on_user_id"
   end
 
   create_table "product_measurements", force: :cascade do |t|
@@ -43,10 +46,10 @@ ActiveRecord::Schema.define(version: 2020_09_03_171421) do
     t.string "password_digest", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "measurements", "users"
   add_foreign_key "product_measurements", "measurements"
   add_foreign_key "product_measurements", "products"
   add_foreign_key "products", "users"
