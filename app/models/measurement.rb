@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Measurement < ApplicationRecord
   belongs_to :user
   has_many :product_measurements, dependent: :destroy

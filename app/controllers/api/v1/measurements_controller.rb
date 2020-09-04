@@ -1,38 +1,42 @@
-class Api::V1::MeasurementsController < ApplicationController
-  before_action :check_login, only: %i[index show create]
+# frozen_string_literal: true
 
-  def index
-    render json: MeasurementSerializer.new(current_user.measurements).serializable_hash
-  end
+module Api
+  module V1
+    class MeasurementsController < ApplicationController
+      before_action :check_login, only: %i[index show create]
 
-  def show
-    measurement = current_user.measurements.find(params[:id])
+      def index
+        render json: MeasurementSerializer.new(current_user.measurements).serializable_hash
+      end
 
-    if measurement
-      options = { include: [:products] }
-      render json: MeasurementSerializer.new(measurement, options).serializable_hash
-    else
-      head 404
+      def show
+        measurement = current_user.measurements.find(params[:id])
+
+        if measurement
+          options = { include: [:products] }
+          render json: MeasurementSerializer.new(measurement, options).serializable_hash
+        else
+          head 404
+        end
+      end
+
+      def create
+        measurement = current_user.measurements.build(measurement_params)
+
+        if measurement.save
+          render json: measurement, status: 201
+        else
+          render json: { errors: measurement.errors }, status: 422
+        end
+      end
+
+      def update; end
+
+      private
+
+      def measurement_params
+        params.require(:measurement).permit(:total, :category, product_ids: [])
+      end
     end
   end
-
-  def create
-    measurement = current_user.measurements.build(measurement_params)
-
-    if measurement.save
-      render json: measurement, status: 201
-    else
-      render json: { errors: measurement.errors }, status: 422
-    end
-  end
-
-  def update
-
-  end
-
-  private
-
-    def measurement_params
-      params.require(:measurement).permit(:total,:category, product_ids: [])
-    end
 end
